@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title data-page-title="详情页">详情页</title>
+    <!-- font-awesome -->
+    <link href="https://o.qcloud.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!-- 蓝鲸提供的移动端公用样式库 -->
+    <link href="https://o.qcloud.com/static_api/v3/bk_mobile/bkui/dist/style/bkui.min.css" rel="stylesheet">
+    <!-- 引入jQuery2.0 -->
+    <script src="https://o.qcloud.com/static_api/v3/bk_mobile/assets/js/jquery-2.0.0.min.js"></script>
+    <!-- 引入蓝鲸提供的公用js -->
+    <script src="https://o.qcloud.com/static_api/v3/bk_mobile/bk/js/bk_mobile.js"></script>
+    <script src="https://o.qcloud.com/static_api/v3/bk_mobile/assets/echart-3.3.1/echarts.min.js"></script>
+</head>
+
+<body class="bg-bright1" data-bg-color="bg-bright1">
+    <section>
+        <header class="bkui-header bkui-header-primary">
+            <h1 class="bkui-header-title">MDNote</h1>
+            <a href="javascript:void(0);" class="bkui-header-right" id="sidebar_demo3"> <i class="fa fa-bars bkui-header-icon"></i> </a>
+        </header>
+    </section>
+    <section>
+        <div class="bkui-panel f16 m0">
+            <div class="bkui-panel-header">标题</div>
+            <div class="bkui-panel-body">
+                <div class="ui-component" style="position: relative; opacity: 1; z-index: auto; left: 0px; top: 0px;">
+                    <section>
+                        <p class="bkui-paragragh f14 m10">rem（font size of the root element）是指相对于根元素的字体大小的单位。简单的说它就是一个相对单位。规则是依赖根元素一个是依赖父元素计算。</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="bkui-tabbar bkui-fixed-tabbar bkui-tabbar-light">
+            <a class="bkui-tabbar-item bkui-tabbar-active" href="javascript:void(0);">
+                <div class="bkui-tabbar-icon"> <i class="fa fa-star-half-full"></i> </div>
+                <p class="bkui-tabbar-label">置顶</p>
+            </a>
+            <a class="bkui-tabbar-item" href="javascript:void(0);">
+                <div class="bkui-tabbar-icon"> <i class="fa fa-edit"></i> </div>
+                <p class="bkui-tabbar-label">编辑</p>
+            </a>
+            <a class="bkui-tabbar-item" href="javascript:void(0);">
+                <div class="bkui-tabbar-icon"> <i class="fa fa-trash"></i> </div>
+                <p class="bkui-tabbar-label">删除</p>
+            </a>
+            <a class="bkui-tabbar-item" href="javascript:void(0);">
+                <div class="bkui-tabbar-icon"> <i class="fa fa-share-alt"></i> </div>
+                <p class="bkui-tabbar-label">分享</p>
+            </a>
+        </div>
+    </section>
+    <script>
+        $(function(){
+            $('#sidebar_mask').on('click', function(){
+                $('body').removeClass('bkui-menu-open r-push l-push');
+                $('.bkui-sidenav').removeClass('bkui-left-envelop bkui-right-envelop bkui-slide-menu');
+            });
+            $('#sidebar_demo3').on('click',function(){
+                $('body').addClass('bkui-menu-open');
+                $('#bkui_r_sidenav').addClass('bkui-right-envelop bkui-slide-menu');
+                return false;
+            });
+        })
+    </script>
+</body>
+
+</html>
