@@ -1,15 +1,26 @@
-body {
+body{
 	padding-top: 50px;
 }
+
+
+
 .sidebar {
 	padding: 10px;
 	min-height: 600px;
 	background-color: #ebebeb; 
-} 
-.notelist {
-	padding: 10px;
-	min-height: 600px;
 }
+.sidebar li{
+	cursor:pointer;
+}
+.note-list {
+	padding: 10px;
+	min-height: 500px;
+}
+
+.note-list li{
+	cursor:pointer;
+}
+
 .note{
 	padding: 5px;
 	border-top: 1px solid #ebebeb;
@@ -17,8 +28,25 @@ body {
 .note:hover{
 	background-color: #ebebeb;
 }
-.notecontent {
+.note-content {
 	padding-top: 10px;
-	min-height: 600px;
+	min-height: 500px;
 	background-color: #ebebeb;
+}
+#view {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+	min-height: 500px;
+	background-color: #fff;
+}
+
+.note-save-successed{
+	font-size: 10px;
+	color: #337ab7;
+}
+.note-save-failed{
+	font-size: 10px;
+	color: red;
 }

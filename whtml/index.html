@@ -15,7 +15,7 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="web">
   <div class="row">
   	<div class="col-md-12">
   		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -28,43 +28,25 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#">Brand</a>
+		      <a class="navbar-brand" href="#">MDnote</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-		        <li><a href="#">Link</a></li>
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">One more separated link</a></li>
-		          </ul>
-		        </li>
-		      </ul>
-		      <form class="navbar-form navbar-left">
+		      <div class="navbar-form navbar-left">
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Search">
 		        </div>
-		        <button type="submit" class="btn btn-default">Submit</button>
-		      </form>
+		      </div>
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="#">Link</a></li>
+		        <li><a href="#">关于</a></li>
 		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{username}}<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
+		            <li><a href="#">个人中心</a></li>
+		            <li><a href="#">设置</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
+		            <li><a href="#">退出</a></li>
 		          </ul>
 		        </li>
 		      </ul>
@@ -79,14 +61,11 @@
 		  <li role="presentation" class="active"><a href="#">笔记本</a>
 		    <div class="notebooks">
 			<ul class="list-group">
-			  <li class="list-group-item">
-			    <span class="badge">14</span>
-			    Cras justo odio
+			  <li class="list-group-item" v-on:click="loadLastNotes()">Last</li>
+			  <li class="list-group-item" v-for="book in notebooks" v-on:click="changeNoteBook(book)">
+			    <span class="badge">{{book.count}}</span>
+			    {{book.name}}
 			  </li>
-			  <li class="list-group-item">Dapibus ac facilisis in</li>
-			  <li class="list-group-item">Morbi leo risus</li>
-			  <li class="list-group-item">Porta ac consectetur ac</li>
-			  <li class="list-group-item">Vestibulum at eros</li>
 			</ul>
 			</div>
 		  </li>
@@ -104,21 +83,49 @@
 		  <li role="presentation"><a href="#">Messages</a></li>
 		</ul>
     </div>
-    <div class="col-md-2 notelist">最新
+    <div class="col-md-2 note-list">最新
     <ul class="list-unstyled">
-    	<li href="#" class="note">
-	    <h4>List group item heading</h4>
-	    <p>水电费水电费水电费水电费电视</p>
+	  	<li class="note" v-for="note in notes" v-on:click="getNote(note)">
+	    <h4>{{note.title}}</h4>
+	    {{note.desc}}
 	  	</li>
-	  	<li href="#" class="note">
-	    <h4>List group item heading</h4>
-	    <p>水电费水电费水电费水电费电视</p>
-	  	</li>
+
     </ul>
     </div>
-    <div class="col-md-8 notecontent">笔记内容栏</div>
+    <div class="col-md-8 note-content">
+	    <form class="form-horizontal">
+		  <div class="form-group">
+		    <div class="col-sm-12">
+		      <input type="text" class="form-control" placeholder="无标题" v-bind:value="note.title">
+		    </div>
+		    <hr>
+		    <div class="col-sm-12">
+		    <ul class="nav nav-tabs">
+		      <li role="presentation" class="active"><a href="#view" data-toggle="tab">查看</a></li>
+			  <li role="presentation"><a href="#write" data-toggle="tab">编辑</a></li>
+			  <li role="presentation"><a href="#" id="note-save">保存</a></li>
+			  <span class="hidden note-save-successed">保存成功</span>
+			  <span class="hidden note-save-failed">保存失败</span>
+			</ul>
+			</div>
+			<div class="col-sm-12">
+			<div class="tab-content">
+				<div class="tab-pane active" id="view">
+						{{note.content}}
+				</div>
+				<div class="tab-pane" id="write">
+				      <textarea class="form-control" rows="20">{{note.content}}</textarea>	
+				</div>
+			</div>
+			</div>		    
+		  </div>
+		  </form>
+    </div>
+
   </div>
 </div>
-
+<script src="//cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
+<script src="//cdn.bootcss.com/axios/0.15.3/axios.js"></script>
+<script src="js/vnote.js"></script>
 </body>
 </html>
