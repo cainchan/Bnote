@@ -1,0 +1,59 @@
+.navbar {
+	margin-bottom: 0px;
+}
+
+.sidebar {
+	padding: 10px;
+	min-height: 600px;
+	background-color: #ebebeb; 
+}
+.sidebar li{
+	cursor:pointer;
+}
+.note-list {
+	padding: 10px;
+	min-height: 500px;
+}
+
+.note-list li{
+	cursor:pointer;
+}
+.note-list .notebook-name{
+	margin-bottom: 15px;
+	font-size: 16px;
+}
+.note{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-top: 1px solid #ebebeb;
+}
+.note .note-tilte{
+
+}
+.note:hover{
+	background-color: #ebebeb;
+}
+.note-content {
+	padding-top: 10px;
+	min-height: 500px;
+	background-color: #ebebeb;
+}
+#view {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+	min-height: 500px;
+	background-color: #fff;
+}
+
+.note-save-successed{
+	font-size: 10px;
+	color: #337ab7;
+}
+.note-save-failed{
+	font-size: 10px;
+	color: red;
+}

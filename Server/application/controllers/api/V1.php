@@ -11,10 +11,11 @@ class V1 extends REST_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('Notemodel');
+        $this->load->model('Notebookmodel');
     }
+    // 获取笔记本
     public function notebook_get(){
-        $criteria = ['orderby' => 'created_at DESC'];
-        $notebooks = $this->Notemodel->getAll($criteria);
+        $notebooks = $this->Notebookmodel->getAll();
         if ($notebooks){
             // OK (200) being the HTTP response code
             $this->response($notebooks, REST_Controller::HTTP_OK); 
@@ -48,7 +49,7 @@ class V1 extends REST_Controller {
                 // BAD_REQUEST (400) being the HTTP response code
                 $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
             }
-            $criteria = ['folder_id' => $notebook_id,'orderby' => 'created_at DESC'];
+            $criteria = ['notebook_id' => $notebook_id,'orderby' => 'created_at DESC'];
         	$notes = $this->Notemodel->getAll($criteria);
 
             if (!empty($notes)){

@@ -1,9 +1,9 @@
 <?php
-class Notemodel extends CI_Model {
+class Notebookmodel extends CI_Model {
 
     public function __construct(){
         $this->load->database();
-        $this->tableName = 'notes';
+        $this->tableName = 'notebooks';
     }
     public function getAll($criteria=''){
     	if (!empty($criteria['orderby'])){
