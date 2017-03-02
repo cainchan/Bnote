@@ -54,6 +54,8 @@ var vm = new Vue({
 		},
 		getNote:function(note){
 			this.note = note;
+			this.editFlag = false;
+			this.viewFlag = true;
 			/*
 
 			var needload = 1;
