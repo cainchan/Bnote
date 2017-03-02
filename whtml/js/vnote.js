@@ -6,7 +6,8 @@ var vm = new Vue({
 		notes : [],
 		latestnotes:[],
 		note: {},
-		noteContent :{}
+		noteContent :{},
+		notebook_name : "最近"
 	},
 	filters:{
 
@@ -20,7 +21,7 @@ var vm = new Vue({
 	methods:{
 		loadNoteBooks:function(){
 			var _this = this;			
-			axios.get('/data/getnotebooks.json').then(function (res) {
+			axios.get('data/getnotebooks.json').then(function (res) {
 				var ret = eval(res.data);
 		    	_this.notebooks = ret.notebooks;
 			});
@@ -28,7 +29,7 @@ var vm = new Vue({
 		loadLastNotes:function(){
 			if (this.latestnotes.length == 0){
 				var _this = this;
-				axios.get('/data/getlastnotes.json').then(function (res) {
+				axios.get('data/getlastnotes.json').then(function (res) {
 			    	var ret = eval(res.data);
 			    	_this.notes = ret.notes;
 			    	_this.latestnotes = ret.notes;
@@ -50,7 +51,7 @@ var vm = new Vue({
 				}
 			});
 			if (needload == 1){
-				axios.get('/data/getnotes.json?id='+notebook.id).then(function (res) {
+				axios.get('data/getnotes.json?id='+notebook.id).then(function (res) {
 			    	var ret = eval(res.data);
 			    	_this.notes = ret.notes;
 			    	_this.notebooks.forEach(function(value,index){
@@ -71,7 +72,7 @@ var vm = new Vue({
 				needload = 0;
 			}
 			if (needload == 1){
-				axios.get('/data/getNote.json?id='+note.id).then(function (res) {
+				axios.get('data/getNote.json?id='+note.id).then(function (res) {
 			    	var ret = eval(res.data);
 			    	_this.note = ret;
 			    	console.log(ret)
