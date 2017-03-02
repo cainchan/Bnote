@@ -116,7 +116,7 @@
 				<div class="tab-pane" id="view" v-bind:class="{'active':viewFlag}" v-html="note.html">
 				</div>
 				<div class="tab-pane" id="edit" v-bind:class="{'active':editFlag}">
-				      <textarea class="form-control" rows="20">{{note.text}}</textarea>	
+				      <textarea class="form-control" rows="20" v-model="note.text"></textarea>	
 				</div>
 			</div>
 			</div>		    

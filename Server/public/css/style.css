@@ -32,6 +32,7 @@
 .note-list {
 	padding: 10px;
 	height: 100%;
+	overflow: auto;
 }
 
 .note-list li{
@@ -58,6 +59,7 @@
 	padding-top: 10px;
 	height: 100%;
 	background-color: #ebebeb;
+	overflow: auto;
 }
 .note-content div{
 	height: 100%;
@@ -67,7 +69,7 @@
 	border-right: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 10px;
-	min-height: 800px;
+	min-height: 600px;
 	background-color: #fff;
 	overflow: auto;
 }

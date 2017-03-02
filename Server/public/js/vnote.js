@@ -89,17 +89,13 @@ var vm = new Vue({
 			// 调用新增笔记接口
 		},
 		viewNote:function(){
-			var text = document.getElementById("edit").innerText
-			console.log(text);
 			this.editFlag = false;
 			this.viewFlag = true;
-			this.$set(this.note,"html",text);
+			// this.$set(this.note,"html",this.note.text);
 		},
 		editNote:function(){
-			console.log(this.note);
 			this.editFlag = true;
 			this.viewFlag = false;
-
 		}
 
 	}
