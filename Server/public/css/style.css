@@ -1,10 +1,29 @@
+#web {
+	overflow: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.content {
+	padding-top: 50px;
+	position: absolute;
+	top: 0px;
+	left: 15px;
+	right: 15px;
+	bottom: 50px;
+	height: 100%;
+	overflow: auto;
+}
 .navbar {
 	margin-bottom: 0px;
 }
 
 .sidebar {
 	padding: 10px;
-	min-height: 600px;
+	min-height: 100%;
+	height: 100%;
 	background-color: #ebebeb; 
 }
 .sidebar li{
@@ -12,7 +31,7 @@
 }
 .note-list {
 	padding: 10px;
-	min-height: 500px;
+	height: 100%;
 }
 
 .note-list li{
@@ -37,16 +56,20 @@
 }
 .note-content {
 	padding-top: 10px;
-	min-height: 500px;
+	height: 100%;
 	background-color: #ebebeb;
+}
+.note-content div{
+	height: 100%;
 }
 #view {
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 10px;
-	min-height: 500px;
+	min-height: 800px;
 	background-color: #fff;
+	overflow: auto;
 }
 
 .note-save-successed{

@@ -3,10 +3,12 @@ var vm = new Vue({
 	data:{
 		username:"KayChen",
 		notebooks:[],
-		notes : [],
-		latestnotes:[],
+		notebook:{},
+		latest:{'name':"最近"},
 		note: {},
-		notebook_name:"最近"
+		viewFlag:true,
+		editFlag:false
+
 	},
 	filters:{
 
@@ -25,37 +27,30 @@ var vm = new Vue({
 			});
 		},
 		loadLastNotes:function(){
-			if (this.latestnotes.length == 0){
+			if (this.latest.hasOwnProperty('notes') === false){
 				var _this = this;
 				axios.get('/api/v1/note').then(function (res) {
-			    	_this.notes = res.data;
-			    	_this.latestnotes = res.data;
-			    	_this.getNote(_this.notes[0]);
-			    	_this.notebook_name = "最近";
+					_this.$set(_this.latest,"notes",res.data);
+			    	_this.notebook = _this.latest;
+			    	_this.getNote(_this.notebook.notes[0]);
 				});
 			}else{
-				this.notes = this.latestnotes;
-				this.getNote(this.notes[0]);
-				this.notebook_name = "最近";
+				this.notebook = this.latest;
+				this.getNote(this.notebook.notes[0]);
 			}
 
 		},
 		getNotes:function(notebook){
-			var _this = this;
-			var needload = 0;
-
-			_this.notebook_name = notebook.name;
+			this.notebook = notebook;
 			if (notebook.hasOwnProperty('notes') === false){
-				console.log(notebook.notes);
+				var _this = this;
 				axios.get('/api/v1/note/notebook/'+notebook.id).then(function (res) {
-			    	_this.notes = res.data;
 			    	_this.$set(notebook,"notes",res.data);
+			    	_this.note = _this.notebook.notes[0];
 				});
 			}else{
-				_this.notes = notebook.notes;
+				this.note = this.notebook.notes[0];
 			}
-			_this.note = _this.notes[0];
-
 		},
 		getNote:function(note){
 			this.note = note;
@@ -85,5 +80,27 @@ var vm = new Vue({
 		changeNoteBook:function(notebook){
 			this.getNotes(notebook);
 		},
+		addNote:function(){
+			var note = {"title":"无标题","text":""}
+			this.note = note;
+			this.notebook.notes.unshift(note);
+			this.editFlag = true;
+			this.viewFlag = false;
+			// 调用新增笔记接口
+		},
+		viewNote:function(){
+			var text = document.getElementById("edit").innerText
+			console.log(text);
+			this.editFlag = false;
+			this.viewFlag = true;
+			this.$set(this.note,"html",text);
+		},
+		editNote:function(){
+			console.log(this.note);
+			this.editFlag = true;
+			this.viewFlag = false;
+
+		}
+
 	}
 });
