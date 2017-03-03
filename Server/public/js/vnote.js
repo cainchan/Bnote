@@ -83,17 +83,29 @@ var vm = new Vue({
 			this.getNotes(notebook);
 		},
 		addNote:function(){
-			var note = {"title":"无标题","text":""}
+			var note = {"title":"无标题","text":"","html":""}
 			this.note = note;
 			this.notebook.notes.unshift(note);
 			this.editFlag = true;
 			this.viewFlag = false;
 			// 调用新增笔记接口
+			var _this = this;
+			axios.post('/api/v1/note',note).then(function (res) {
+		    	console.log(res.data);
+			});
+		},
+		saveNote:function(){
+			axios.put('/api/v1/note/id/'+this.note.id,this.note).then(function (res) {
+		    	console.log(res.data);
+			});
 		},
 		viewNote:function(){
 			this.editFlag = false;
 			this.viewFlag = true;
-			// this.$set(this.note,"html",this.note.text);
+			var _this = this;
+			axios.post('/api/v1/markdown2html',this.note).then(function (res) {
+		    	_this.note.html = res.data.html;
+			});
 		},
 		editNote:function(){
 			this.editFlag = true;
