@@ -33,7 +33,11 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      
 	      <ul class="nav navbar-nav navbar-right">
+
 	      	<div class="navbar-form navbar-left">
+	      		<div class="form-group">
+		          <button class="btn btn-default" v-on:click="addNote()">新建MarkDown笔记</button>
+		        </div>
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Search">
 		        </div>
@@ -82,9 +86,9 @@
 		</ul>
     </div>
     <div class="col-md-2 note-list">
-    <span class="glyphicon glyphicon-book notebook-name" aria-hidden="true">{{notebook_name}}</span>
+    <span class="glyphicon glyphicon-book notebook-name" aria-hidden="true">{{notebook.name}}</span>
     <ul class="list-unstyled">
-	  	<li class="note" v-for="note in notes" v-on:click="getNote(note)">
+	  	<li class="note" v-for="note in notebook.notes" v-on:click="getNote(note)">
 	    <span class="note-tilte">{{note.title}}</span>
 	    {{note.desc}}
 	  	</li>
@@ -100,8 +104,8 @@
 		    <hr>
 		    <div class="col-sm-12">
 		    <ul class="nav nav-tabs">
-		      <li role="presentation" class="active"><a href="#view" data-toggle="tab">查看</a></li>
-			  <li role="presentation"><a href="#write" data-toggle="tab">编辑</a></li>
+		      <li role="presentation" v-bind:class="{'active':viewFlag}" v-on:click="viewNote()"><a href="#view" data-toggle="tab">查看</a></li>
+			  <li role="presentation" v-bind:class="{'active':editFlag}" v-on:click="editNote()"><a href="#edit" data-toggle="tab">编辑</a></li>
 			  <li role="presentation"><a href="#" id="note-save">保存</a></li>
 			  <span class="hidden note-save-successed">保存成功</span>
 			  <span class="hidden note-save-failed">保存失败</span>
@@ -109,10 +113,10 @@
 			</div>
 			<div class="col-sm-12">
 			<div class="tab-content">
-				<div class="tab-pane active" id="view" v-html="note.html">
+				<div class="tab-pane" id="view" v-bind:class="{'active':viewFlag}" v-html="note.html">
 				</div>
-				<div class="tab-pane" id="write">
-				      <textarea class="form-control" rows="20">{{note.text}}</textarea>	
+				<div class="tab-pane" id="edit" v-bind:class="{'active':editFlag}">
+				      <textarea class="form-control" rows="20" v-model="note.text"></textarea>	
 				</div>
 			</div>
 			</div>		    
@@ -122,8 +126,8 @@
 
   </div>
 </div>
-<script src="http://cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
-<script src="http://cdn.bootcss.com/axios/0.15.3/axios.js"></script>
+<script src="//cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
+<script src="//cdn.bootcss.com/axios/0.15.3/axios.js"></script>
 <script src="js/vnote.js"></script>
 </body>
 </html>
