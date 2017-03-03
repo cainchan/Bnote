@@ -39,7 +39,8 @@ class Notemodel extends CI_Model {
 		return $this->db->get_where($this->tableName, $criteria)->first_row('array');
 	}
 	public function add($data){
-        return $this->db->insert($this->tableName,$data);
+        $this->db->insert($this->tableName,$data);
+        return $this->db->insert_id();
     }
     public function edit($id,$data){
         $criteria = ['id' => $id];
