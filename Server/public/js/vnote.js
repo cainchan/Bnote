@@ -102,10 +102,11 @@ var vm = new Vue({
 		viewNote:function(){
 			this.editFlag = false;
 			this.viewFlag = true;
-			var _this = this;
+			this.note.html = marked(this.note.text);
+			/*var _this = this;
 			axios.post('/api/v1/markdown2html',this.note).then(function (res) {
 		    	_this.note.html = res.data.html;
-			});
+			});*/
 		},
 		editNote:function(){
 			this.editFlag = true;
@@ -114,3 +115,4 @@ var vm = new Vue({
 
 	}
 });
+hljs.initHighlightingOnLoad();

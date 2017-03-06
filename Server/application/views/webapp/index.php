@@ -127,9 +127,9 @@
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/marked/0.3.6/marked.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.15.3/axios.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
 <script src="/public/js/vnote.js"></script>
 </body>
 </html>
