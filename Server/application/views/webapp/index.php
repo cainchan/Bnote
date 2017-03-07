@@ -33,6 +33,7 @@
 
 	      	<div class="navbar-form navbar-left">
 	      		<div class="form-group">
+	      		  <button class="btn btn-default" v-on:click="addNotebook()">新建笔记本</button>
 		          <button class="btn btn-default" v-on:click="addNote()">新建MarkDown笔记</button>
 		        </div>
 		        <div class="form-group">
@@ -61,6 +62,7 @@
 		    <div class="notebooks">
 			<ul class="list-group">
 			  <li class="list-group-item" v-on:click="loadLastNotes()">最近</li>
+			  <li class="list-group-item" v-if="addNotebookFlag===true"><input type="text" onchange="vm.addNotebook()" v-model="new_notebook"></li>
 			  <li class="list-group-item" v-for="book in notebooks" v-on:click="changeNoteBook(book)">
 			    <span class="badge">{{book.count}}</span>
 			    {{book.name}}

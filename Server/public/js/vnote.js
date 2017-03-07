@@ -7,8 +7,9 @@ var vm = new Vue({
 		latest:{'name':"最近"},
 		note: {},
 		viewFlag:true,
-		editFlag:false
-
+		editFlag:false,
+		addNotebookFlag:false,
+		new_notebook:"",
 	},
 	filters:{
 
@@ -81,6 +82,21 @@ var vm = new Vue({
 		},
 		changeNoteBook:function(notebook){
 			this.getNotes(notebook);
+		},
+		addNotebook:function(){
+			this.addNotebookFlag = true;
+			if (this.new_notebook != ""){
+				var notebook = {"name":this.new_notebook}
+				this.notebooks.unshift(notebook);
+				// 调用新增笔记本接口
+				var _this = this;
+				axios.post('/api/v1/notebook',notebook).then(function (res) {
+			    	console.log(res.data);
+			    	_this.$set(_this.notebooks[0],"id",res.data.id);
+			    	_this.addNotebookFlag = false;
+			    	_this.new_notebook = "";
+				});
+			}
 		},
 		addNote:function(){
 			var note = {"title":"无标题","text":"","html":""}

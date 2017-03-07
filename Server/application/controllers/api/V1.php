@@ -35,6 +35,20 @@ class V1 extends REST_Controller {
             ], REST_Controller::HTTP_NOT_FOUND); 
         }
     }
+    public function notebook_post(){
+        $data = ['name' => $this->post('name'),
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $id = $this->Notebookmodel->add($data);
+        $message = [
+            "id" => $id,
+            "message" => "created success"
+        ];
+        // CREATED (201) being the HTTP response code
+        $this->set_response($message, REST_Controller::HTTP_CREATED); 
+    }
 
     public function note_get(){
         $notebook_id = $this->get('notebook');
@@ -63,10 +77,7 @@ class V1 extends REST_Controller {
             if (!empty($notes)){
                 $this->set_response($notes, REST_Controller::HTTP_OK);
             }else{
-                $this->set_response([
-                    'status' => FALSE,
-                    'message' => 'Notes could not be found'
-                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+                $this->response([], REST_Controller::HTTP_OK);
             }
         }
     }
