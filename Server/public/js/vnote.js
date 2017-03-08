@@ -10,6 +10,7 @@ var vm = new Vue({
 		editFlag:false,
 		addNotebookFlag:false,
 		new_notebook:"",
+		notebookRMenu:false,
 	},
 	filters:{
 
@@ -80,8 +81,25 @@ var vm = new Vue({
 				});
 			}*/
 		},
-		changeNoteBook:function(notebook){
+		changeNotebook:function(notebook){
 			this.getNotes(notebook);
+		},
+		clickNotebook:function(notebook){
+			var event=window.event;
+			//判断是左键还是右键
+			if (event.button == "2"){
+				/*var rMenu = document.getElementById("rmenu");
+				rMenu.style.top = event.clientY + "px";
+				rMenu.style.left = event.clientX + "px";
+				this.notebookRMenu = true;
+				document.oncontextmenu = function(event){
+					event.preventDefault();
+				}
+				console.log("right");*/
+			}else{
+				this.getNotes(notebook);
+				this.notebookRMenu = false;
+			}
 		},
 		addNotebook:function(){
 			this.addNotebookFlag = true;
@@ -131,4 +149,18 @@ var vm = new Vue({
 
 	}
 });
-hljs.initHighlightingOnLoad();
+ $(function() {
+    $.contextMenu({
+        selector: '.list-group-item',
+        callback: function(key, options) {
+            var m = "clicked: 11" + key;
+            console.log(this.attr('id')) || alert(m);
+        },
+        items: {
+            "edit": {name: "Edit", icon: "fa-edit"},
+            "cut": {name: "Beer", icon: "fa-beer"},
+            "copy": {name: "Cloud download", icon: "fa-cloud-download"},
+            "paste": {name: "Certificate", icon: "fa-certificate"}
+        }
+    });
+});
