@@ -64,9 +64,17 @@
 			<ul class="list-group">
 			  <li class="list-group-item" v-on:click="loadLastNotes()">最近</li>
 			  <li class="list-group-item" v-if="addNotebookFlag"><input type="text" v-on:change="addNotebook()" v-model="new_notebook"></li>
-			  <li class="list-group-item" v-for="book in notebooks" v-on:click="changeNotebook(book)" v-bind:id="'notebookid_'+book.id">
-			    <span class="badge">{{book.count}}</span>
-			    {{book.name}}
+			  <li class="list-group-item" v-for="book in notebooks" v-on:mouseover="mouseoverSet(book)" v-on:mouseout="mouseoutSet()">
+			    <span class="badge" v-show="book.hoverSetFlag">
+			    	<a href="javascript:;" data-toggle="dropdown" aria-haspopup="true"><span class="glyphicon glyphicon-asterisk"></span></a>
+			    	<ul class="dropdown-menu dropdown-menu-right">
+			            <li><a href="javascript:;" v-on:click="renameNotebook(book)">重命名</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="javascript:;" v-on:click="deleteNotebook(book)">删除</a></li>
+			        </ul>
+			    </span>
+			    <span v-on:click="changeNotebook(book)">{{book.name}}</span>
+			    
 			  </li>
 			</ul>
 			</div>

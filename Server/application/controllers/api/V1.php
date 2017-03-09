@@ -49,6 +49,18 @@ class V1 extends REST_Controller {
         // CREATED (201) being the HTTP response code
         $this->set_response($message, REST_Controller::HTTP_CREATED); 
     }
+    public function notebook_delete(){
+        $id = intval($this->get('id'));
+        if ($id <= 0){
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+        }
+        $this->Notebookmodel->delete($id);
+        $message = [
+            'id' => $id,
+            'message' => 'Deleted the resource'
+        ];
+        $this->set_response($message, REST_Controller::HTTP_NO_CONTENT); // NO_CONTENT (204) being the HTTP response code
+    }
 
     public function note_get(){
         $notebook_id = $this->get('notebook');

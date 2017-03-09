@@ -145,22 +145,28 @@ var vm = new Vue({
 		editNote:function(){
 			this.editFlag = true;
 			this.viewFlag = false;
+		},
+		mouseoverSet:function(notebook){
+			this.mouseoutSet();
+	    	this.$set(notebook,"hoverSetFlag",true);
+		},
+		mouseoutSet:function(){
+			var _this = this;
+			_this.notebooks.forEach(function(book,index){
+				_this.$set(book,"hoverSetFlag",false);
+	    	});
+		},
+		renameNotebook:function(notebook){
+			console.log(notebook.name);
+		},
+		deleteNotebook:function(notebook){
+			var _this = this;
+			// 服务端删除
+			axios.delete('/api/v1/notebook/id/'+notebook.id).then(function (res) {
+		    	_this.loadNoteBooks();
+			});
+			
 		}
 
 	}
-});
- $(function() {
-    $.contextMenu({
-        selector: '.list-group-item',
-        callback: function(key, options) {
-            var m = "clicked: 11" + key;
-            console.log(this.attr('id')) || alert(m);
-        },
-        items: {
-            "edit": {name: "Edit", icon: "fa-edit"},
-            "cut": {name: "Beer", icon: "fa-beer"},
-            "copy": {name: "Cloud download", icon: "fa-cloud-download"},
-            "paste": {name: "Certificate", icon: "fa-certificate"}
-        }
-    });
 });

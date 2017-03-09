@@ -29,6 +29,14 @@
 .sidebar li{
 	cursor:pointer;
 }
+.list-group-item .badge {
+	background-color: #fff;
+}
+.list-group-item .badge .dropdown-menu{
+	min-width:100px;
+	margin:0px 0 0;
+}
+
 .note-list {
 	padding: 10px;
 	height: 100%;
