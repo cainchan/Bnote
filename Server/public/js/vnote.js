@@ -131,4 +131,3 @@ var vm = new Vue({
 
 	}
 });
-hljs.initHighlightingOnLoad();
