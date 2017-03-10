@@ -8,6 +8,7 @@
 	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-contextmenu/2.4.3/jquery.contextMenu.min.css">
 <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
@@ -62,10 +63,18 @@
 		    <div class="notebooks">
 			<ul class="list-group">
 			  <li class="list-group-item" v-on:click="loadLastNotes()">最近</li>
-			  <li class="list-group-item" v-if="addNotebookFlag===true"><input type="text" onchange="vm.addNotebook()" v-model="new_notebook"></li>
-			  <li class="list-group-item" v-for="book in notebooks" v-on:click="changeNoteBook(book)">
-			    <span class="badge">{{book.count}}</span>
-			    {{book.name}}
+			  <li class="list-group-item" v-if="addNotebookFlag"><input type="text" v-on:change="addNotebook()" v-model="new_notebook"></li>
+			  <li class="list-group-item" v-for="book in notebooks" v-on:mouseover="mouseoverSet(book)" v-on:mouseout="mouseoutSet()">
+			    <span class="badge" v-show="book.hoverSetFlag">
+			    	<a href="javascript:;" data-toggle="dropdown" aria-haspopup="true"><span class="glyphicon glyphicon-asterisk"></span></a>
+			    	<ul class="dropdown-menu dropdown-menu-right">
+			            <li><a href="javascript:;" v-on:click="renameNotebook(book)">重命名</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="javascript:;" v-on:click="deleteNotebook(book)">删除</a></li>
+			        </ul>
+			    </span>
+			    <span v-on:click="changeNotebook(book)">{{book.name}}</span>
+			    
 			  </li>
 			</ul>
 			</div>
@@ -122,12 +131,13 @@
 		  </div>
 		  </form>
     </div>
-
   </div>
 </div>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-contextmenu/2.4.3/jquery.contextMenu.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-contextmenu/2.4.3/jquery.ui.position.min.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
 <script src="https://cdn.bootcss.com/marked/0.3.6/marked.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>

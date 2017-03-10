@@ -13,8 +13,49 @@ use \Michelf\MarkdownExtra;
 class V1 extends REST_Controller {
     function __construct(){
         parent::__construct();
+        $this->load->model('Usermodel');
         $this->load->model('Notemodel');
         $this->load->model('Notebookmodel');
+        $this->result = ['code' => 1,'msg' => '','results' => ''];
+    }
+    public function reg_post(){
+        $password = md5($this->post('password'));
+        $criteria = ['email' => $this->post('email')];
+        $user = $this->Usermodel->getone($criteria);
+        if (!empty($user)){
+            $this->result['code'] == 0;
+            $this->result['msg'] == 'user is exists';
+            $this->response($this->result, REST_Controller::HTTP_OK);
+        }
+        $data = ['email' => $this->post('email'),
+            'password' => md5($this->post('password')),
+            'name' => ''];
+        $id = $this->Usermodel->add($data);
+        $this->result['msg'] = "created success";
+        $this->result['results'] = ['id' => $id];
+        $this->set_response($this->result, REST_Controller::HTTP_CREATED); 
+    }
+    public function login_post(){
+        $password = md5($this->post('password'));
+        $criteria = ['email' => $this->post('email')];
+        $user = $this->Usermodel->getone($criteria);
+        if (empty($user)){
+            $this->result['code'] == 0;
+            $this->result['msg'] == 'user is not exists';
+            $this->response($this->result, REST_Controller::HTTP_OK);
+        }
+        if ($user['password'] != $password){
+            $this->result['code'] == 0;
+            $this->result['msg'] == 'password is error';
+            $this->response($this->result, REST_Controller::HTTP_OK);
+        }
+        // 是否生产token
+        $userinfo = array(
+            'username'  => $user['name'],
+            'email'     => $user['email'],
+            'logged_in' => TRUE
+        );
+        $this->session->set_userdata($userinfo);
     }
     public function markdown2html_post(){
         $html = MarkdownExtra::defaultTransform($this->post('text'));
@@ -48,6 +89,18 @@ class V1 extends REST_Controller {
         ];
         // CREATED (201) being the HTTP response code
         $this->set_response($message, REST_Controller::HTTP_CREATED); 
+    }
+    public function notebook_delete(){
+        $id = intval($this->get('id'));
+        if ($id <= 0){
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+        }
+        $this->Notebookmodel->delete($id);
+        $message = [
+            'id' => $id,
+            'message' => 'Deleted the resource'
+        ];
+        $this->set_response($message, REST_Controller::HTTP_NO_CONTENT); // NO_CONTENT (204) being the HTTP response code
     }
 
     public function note_get(){

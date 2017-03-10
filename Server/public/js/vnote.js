@@ -10,6 +10,7 @@ var vm = new Vue({
 		editFlag:false,
 		addNotebookFlag:false,
 		new_notebook:"",
+		notebookRMenu:false,
 	},
 	filters:{
 
@@ -80,8 +81,25 @@ var vm = new Vue({
 				});
 			}*/
 		},
-		changeNoteBook:function(notebook){
+		changeNotebook:function(notebook){
 			this.getNotes(notebook);
+		},
+		clickNotebook:function(notebook){
+			var event=window.event;
+			//判断是左键还是右键
+			if (event.button == "2"){
+				/*var rMenu = document.getElementById("rmenu");
+				rMenu.style.top = event.clientY + "px";
+				rMenu.style.left = event.clientX + "px";
+				this.notebookRMenu = true;
+				document.oncontextmenu = function(event){
+					event.preventDefault();
+				}
+				console.log("right");*/
+			}else{
+				this.getNotes(notebook);
+				this.notebookRMenu = false;
+			}
 		},
 		addNotebook:function(){
 			this.addNotebookFlag = true;
@@ -127,6 +145,27 @@ var vm = new Vue({
 		editNote:function(){
 			this.editFlag = true;
 			this.viewFlag = false;
+		},
+		mouseoverSet:function(notebook){
+			this.mouseoutSet();
+	    	this.$set(notebook,"hoverSetFlag",true);
+		},
+		mouseoutSet:function(){
+			var _this = this;
+			_this.notebooks.forEach(function(book,index){
+				_this.$set(book,"hoverSetFlag",false);
+	    	});
+		},
+		renameNotebook:function(notebook){
+			console.log(notebook.name);
+		},
+		deleteNotebook:function(notebook){
+			var _this = this;
+			// 服务端删除
+			axios.delete('/api/v1/notebook/id/'+notebook.id).then(function (res) {
+		    	_this.loadNoteBooks();
+			});
+			
 		}
 
 	}
