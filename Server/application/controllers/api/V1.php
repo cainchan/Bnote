@@ -19,43 +19,69 @@ class V1 extends REST_Controller {
         $this->result = ['code' => 1,'msg' => '','results' => ''];
     }
     public function reg_post(){
+        if (empty($this->post('email')) || empty($this->post('password')) || empty($this->post('password2'))){
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'param is empty';
+            $this->response($this->result, REST_Controller::HTTP_BAD_REQUEST);
+            return;
+        }
+        if ($this->post('password') != $this->post('password2')){
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'password is not same';
+            $this->response($this->result, REST_Controller::HTTP_BAD_REQUEST);
+            return;
+        }
         $password = md5($this->post('password'));
         $criteria = ['email' => $this->post('email')];
         $user = $this->Usermodel->getone($criteria);
         if (!empty($user)){
-            $this->result['code'] == 0;
-            $this->result['msg'] == 'user is exists';
-            $this->response($this->result, REST_Controller::HTTP_OK);
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'user is exists';
+            $this->response($this->result, REST_Controller::HTTP_BAD_REQUEST);
+            return;
         }
         $data = ['email' => $this->post('email'),
             'password' => md5($this->post('password')),
-            'name' => ''];
+            'name' => $this->post('email')];
         $id = $this->Usermodel->add($data);
         $this->result['msg'] = "created success";
         $this->result['results'] = ['id' => $id];
-        $this->set_response($this->result, REST_Controller::HTTP_CREATED); 
+        $this->set_response($this->result, REST_Controller::HTTP_CREATED);
     }
     public function login_post(){
+        if (empty($this->post('email')) || empty($this->post('password')) ){
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'param is empty';
+            $this->response($this->result, REST_Controller::HTTP_BAD_REQUEST);
+        }
         $password = md5($this->post('password'));
         $criteria = ['email' => $this->post('email')];
         $user = $this->Usermodel->getone($criteria);
         if (empty($user)){
-            $this->result['code'] == 0;
-            $this->result['msg'] == 'user is not exists';
-            $this->response($this->result, REST_Controller::HTTP_OK);
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'user is not exists';
+            $this->response($this->result, REST_Controller::HTTP_BAD_REQUEST);
+            return;
         }
         if ($user['password'] != $password){
-            $this->result['code'] == 0;
-            $this->result['msg'] == 'password is error';
-            $this->response($this->result, REST_Controller::HTTP_OK);
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'password is error';
+            $this->response($this->result, REST_Controller::HTTP_BAD_REQUEST);
+            return;
         }
+        $token = md5(rand());
         // 是否生产token
         $userinfo = array(
             'username'  => $user['name'],
             'email'     => $user['email'],
-            'logged_in' => TRUE
+            'logged_in' => TRUE,
+            $token => $user['id'],
         );
         $this->session->set_userdata($userinfo);
+        $this->result['token'] = $token;
+        $this->result['msg'] = 'login success';
+        $this->response($this->result, REST_Controller::HTTP_OK);
+        return;
     }
     public function markdown2html_post(){
         $html = MarkdownExtra::defaultTransform($this->post('text'));
