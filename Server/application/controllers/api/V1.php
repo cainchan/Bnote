@@ -113,13 +113,17 @@ class V1 extends REST_Controller {
         $criteria = ['user_id' => $this->user_id];
         $notebooks = $this->Notebookmodel->getAll($criteria);
         if ($notebooks){
+            foreach ($notebooks as $key => $value) {
+                $criteria = ['notebook_id' => $value['id']];
+                $notebooks[$key]['count'] = $this->Notemodel->getTotal($criteria);
+            }
             // OK (200) being the HTTP response code
             $this->response($notebooks, REST_Controller::HTTP_OK);
         }else{
             // NOT_FOUND (404) being the HTTP response code
             $this->response([
                 'status' => FALSE,
-                'message' => 'No notebooks were found'.json_encode($criteria),
+                'message' => 'No notebooks were found',
             ], REST_Controller::HTTP_NOT_FOUND); 
         }
     }

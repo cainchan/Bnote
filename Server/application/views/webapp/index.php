@@ -68,9 +68,9 @@
 			    <span class="badge" v-show="book.hoverSetFlag">
 			    	<a href="javascript:;" data-toggle="dropdown" aria-haspopup="true"><span class="glyphicon glyphicon-asterisk"></span></a>
 			    	<ul class="dropdown-menu dropdown-menu-right">
-			            <li><a href="javascript:;" v-on:click="renameNotebook(book)">重命名</a></li>
-			            <li role="separator" class="divider"></li>
-			            <li><a href="javascript:;" v-on:click="deleteNotebook(book)">删除</a></li>
+			            <li><a v-on:click="renameNotebook(book)">重命名</a></li>
+			            <!-- <li role="separator" class="divider"></li> -->
+			            <li v-if="book.count==0"><a v-on:click="deleteNotebook(book)">删除</a></li>
 			        </ul>
 			    </span>
 			    <span v-on:click="changeNotebook(book)">{{book.name}}</span>
