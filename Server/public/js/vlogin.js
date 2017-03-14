@@ -19,7 +19,7 @@ var vm = new Vue({
 			axios.post('/api/v1/login',param).then(function (res) {
 		    	console.log(res.data);
 		    	if (res.data.code == 1){
-		    		window.location.href = '/?token='+res.data.token;
+		    		window.location.href = '/';
 		    	}
 			});
 		}

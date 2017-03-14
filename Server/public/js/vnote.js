@@ -1,7 +1,7 @@
 var vm = new Vue({
 	el:"#web",
 	data:{
-		username:"KayChen",
+		username:"",
 		notebooks:[],
 		notebook:{},
 		latest:{'name':"最近"},
@@ -17,11 +17,29 @@ var vm = new Vue({
 	},
 	mounted:function(){
 		this.$nextTick(function(){
-			this.loadNoteBooks()
-			this.loadLastNotes()
+			this.veryfyLogin();
+			this.loadNoteBooks();
+			this.loadLastNotes();
 		})
 	},
 	methods:{
+		veryfyLogin:function(){
+			var _this = this;			
+			axios.get('/api/v1/verifyLogin').then(function (res) {
+		    	if (res.data.code == 1){
+		    		_this.username = res.data.email;	
+		    	}else{
+		    		window.location.href = '/user/login';
+		    	}
+			});
+		},
+		logout:function(){
+			axios.get('/api/v1/logout').then(function (res) {
+		    	if (res.data.code == 1){
+		    		window.location.href = '/user/login';	
+		    	}
+			});
+		},
 		loadNoteBooks:function(){
 			var _this = this;			
 			axios.get('/api/v1/notebook').then(function (res) {
@@ -117,7 +135,7 @@ var vm = new Vue({
 			}
 		},
 		addNote:function(){
-			var note = {"title":"无标题","text":"","html":""}
+			var note = {"title":"无标题","text":"","html":"","notebook_id":this.note.notebook_id}
 			this.note = note;
 			this.notebook.notes.unshift(note);
 			this.editFlag = true;

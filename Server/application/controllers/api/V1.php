@@ -17,6 +17,7 @@ class V1 extends REST_Controller {
         $this->load->model('Notemodel');
         $this->load->model('Notebookmodel');
         $this->result = ['code' => 1,'msg' => '','results' => ''];
+        $this->user_id = $this->session->userdata('user_id');
     }
     public function reg_post(){
         if (empty($this->post('email')) || empty($this->post('password')) || empty($this->post('password2'))){
@@ -74,14 +75,33 @@ class V1 extends REST_Controller {
         $userinfo = array(
             'username'  => $user['name'],
             'email'     => $user['email'],
-            'logged_in' => TRUE,
-            $token => $user['id'],
+            'user_id' => $user['id'],
+            // $token => $user['id'],
         );
         $this->session->set_userdata($userinfo);
         $this->result['token'] = $token;
         $this->result['msg'] = 'login success';
         $this->response($this->result, REST_Controller::HTTP_OK);
         return;
+    }
+    public function logout_get(){
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('user_id');
+        $this->result['msg'] = 'logout success';
+        $this->response($this->result, REST_Controller::HTTP_OK);
+    }
+    public function verifyLogin_get(){
+        $email = $this->session->userdata('email');
+        if (empty($email)){
+            $this->result['code'] = 0;
+            $this->result['msg'] = 'no logined';
+            $this->response($this->result, REST_Controller::HTTP_OK);
+            return;
+        }
+        $this->result['email'] = $email;
+        $this->result['msg'] = 'login success';
+        $this->response($this->result, REST_Controller::HTTP_OK);
     }
     public function markdown2html_post(){
         $html = MarkdownExtra::defaultTransform($this->post('text'));
@@ -90,7 +110,8 @@ class V1 extends REST_Controller {
     }
     // 获取笔记本
     public function notebook_get(){
-        $notebooks = $this->Notebookmodel->getAll();
+        $criteria = ['user_id' => $this->user_id];
+        $notebooks = $this->Notebookmodel->getAll($criteria);
         if ($notebooks){
             // OK (200) being the HTTP response code
             $this->response($notebooks, REST_Controller::HTTP_OK);
@@ -98,13 +119,13 @@ class V1 extends REST_Controller {
             // NOT_FOUND (404) being the HTTP response code
             $this->response([
                 'status' => FALSE,
-                'message' => 'No notes were found'
+                'message' => 'No notebooks were found'.json_encode($criteria),
             ], REST_Controller::HTTP_NOT_FOUND); 
         }
     }
     public function notebook_post(){
         $data = ['name' => $this->post('name'),
-            'user_id' => 1,
+            'user_id' => $this->user_id,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ];
@@ -132,7 +153,7 @@ class V1 extends REST_Controller {
     public function note_get(){
         $notebook_id = $this->get('notebook');
         if ($notebook_id === NULL){
-            $criteria = ['orderby' => 'updated_at DESC'];
+            $criteria = ['user_id' => $this->user_id,'orderby' => 'updated_at DESC'];
             $notes = $this->Notemodel->getAll($criteria);
             if ($notes){
                 // OK (200) being the HTTP response code
@@ -150,7 +171,7 @@ class V1 extends REST_Controller {
                 // BAD_REQUEST (400) being the HTTP response code
                 $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
             }
-            $criteria = ['notebook_id' => $notebook_id,'orderby' => 'updated_at DESC'];
+            $criteria = ['user_id' => $this->user_id,'notebook_id' => $notebook_id,'orderby' => 'updated_at DESC'];
         	$notes = $this->Notemodel->getAll($criteria);
 
             if (!empty($notes)){
@@ -164,6 +185,8 @@ class V1 extends REST_Controller {
         $data = ['title' => $this->post('title'),
             'text' => $this->post('text'),
             'html' => $this->post('html'),
+            'notebook_id' => $this->post('notebook_id'),
+            'user_id' => $this->user_id,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ];
