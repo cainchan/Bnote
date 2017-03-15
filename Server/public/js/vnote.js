@@ -76,28 +76,6 @@ var vm = new Vue({
 			this.note = note;
 			this.editFlag = false;
 			this.viewFlag = true;
-			/*
-
-			var needload = 1;
-			if (note.hasOwnProperty('text') == false){
-				needload = 0;
-			}
-			if (needload == 1){
-				axios.get('/public/data/getNote.json?id='+note.id).then(function (res) {
-			    	var ret = eval(res.data);
-			    	_this.note = ret;
-			    	console.log(ret)
-			    	_this.notebooks.forEach(function(book,index){
-			    		if (book.id == ret.notebook_id){
-			    			book.notes.forEach(function(value,index2){
-			    				if (value.id == ret.id){
-			    					value = ret;
-			    				}
-			    			});
-			    		}
-			    	});
-				});
-			}*/
 		},
 		changeNotebook:function(notebook){
 			this.getNotes(notebook);
