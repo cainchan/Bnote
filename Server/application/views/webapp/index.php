@@ -114,7 +114,8 @@
 		    <ul class="nav nav-tabs">
 		      <li role="presentation" v-bind:class="{'active':viewFlag}" v-on:click="viewNote()"><a href="#view" data-toggle="tab">查看</a></li>
 			  <li role="presentation" v-bind:class="{'active':editFlag}" v-on:click="editNote()"><a href="#edit" data-toggle="tab">编辑</a></li>
-			  <li role="presentation"><a href="javascript:;" id="note-save" v-on:click="saveNote()">保存</a></li>
+			  <li role="presentation"><a href="javascript:;" v-on:click="saveNote()">保存</a></li>
+			  <li role="presentation"><a href="javascript:;" v-on:click="deleteNote()">删除</a></li>
 			  <span class="hidden note-save-successed">保存成功</span>
 			  <span class="hidden note-save-failed">保存失败</span>
 			</ul>

@@ -142,11 +142,12 @@ var vm = new Vue({
 			this.viewFlag = false;
 			// 调用新增笔记接口
 			var _this = this;
-			axios.post('/api/v1/note',note).then(function (res) {
-		    	console.log(res.data);
+			axios.post('/api/v1/note',note).then(function (res) {				
+		    	_this.$set(_this.note,"id",res.data.id);
 			});
 		},
 		saveNote:function(){
+			this.note.html = marked(this.note.text);
 			axios.put('/api/v1/note/id/'+this.note.id,this.note).then(function (res) {
 		    	console.log(res.data);
 			});
@@ -163,6 +164,15 @@ var vm = new Vue({
 		editNote:function(){
 			this.editFlag = true;
 			this.viewFlag = false;
+		},
+		deleteNote:function(){
+			var _this = this;
+			axios.delete('/api/v1/note/id/'+_this.note.id).then(function (res) {
+		    	console.log(res.data);
+		    	_this.latest = {'name':'最近'}
+		    	_this.loadNoteBooks();
+		    	_this.loadLastNotes();
+			});
 		},
 		mouseoverSet:function(notebook){
 			this.mouseoutSet();
@@ -183,8 +193,6 @@ var vm = new Vue({
 			axios.delete('/api/v1/notebook/id/'+notebook.id).then(function (res) {
 		    	_this.loadNoteBooks();
 			});
-			
-		}
-
+		},
 	}
 });
