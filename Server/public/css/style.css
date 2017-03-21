@@ -29,6 +29,9 @@
 .sidebar li{
 	cursor:pointer;
 }
+.add-notebook {
+	background-color : #337ab7;
+}
 .list-group-item .badge {
 	background-color: #fff;
 }

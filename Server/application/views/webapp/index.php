@@ -34,7 +34,7 @@
 
 	      	<div class="navbar-form navbar-left">
 	      		<div class="form-group">
-	      		  <button class="btn btn-default" v-on:click="addNotebook()">新建笔记本</button>
+	      		  <!-- <button class="btn btn-default" v-on:click="addNotebook()">新建笔记本</button> -->
 		          <button class="btn btn-default" v-on:click="addNote()">新建MarkDown笔记</button>
 		        </div>
 		        <div class="form-group">
@@ -59,7 +59,15 @@
   <div class="row content">
     <div class="col-md-2 sidebar">
     	<ul class="nav nav-pills nav-stacked">
-		  <li role="presentation" class="active"><a href="#">笔记本</a>
+		  <li role="presentation" class="active">
+		  <a>笔记本
+		  <div class="pull-right">
+		  	<span class="badge add-notebook" v-on:click="addNotebook()">
+		  		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		  	</span>
+		  </div>
+		  </a>
+		   
 		    <div class="notebooks">
 			<ul class="list-group">
 			  <li class="list-group-item" v-on:click="loadLastNotes()">最近</li>
