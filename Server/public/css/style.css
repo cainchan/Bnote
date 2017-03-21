@@ -76,6 +76,9 @@
 .note-content .no-note{
 	margin-top: 100px;
 }
+.note-content img{
+	max-width: 100%;
+}
 #view {
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
