@@ -57,9 +57,7 @@
 	padding-right: 5px;
 	border-top: 1px solid #ebebeb;
 }
-.note .note-tilte{
 
-}
 .note:hover{
 	background-color: #ebebeb;
 }
@@ -71,6 +69,9 @@
 }
 .note-content div{
 	height: 100%;
+}
+.note-content .no-note{
+	margin-top: 100px;
 }
 #view {
 	border-left: 1px solid #ddd;

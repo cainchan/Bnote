@@ -113,7 +113,12 @@ var vm = new Vue({
 			}
 		},
 		addNote:function(){
-			var note = {"title":"无标题","text":"","html":"","notebook_id":this.note.notebook_id}
+			var note = {"title":"无标题","text":"","html":""}
+			if (this.note){
+				note['notebook_id'] = this.note.notebook_id;
+			}else{
+				note['notebook_id'] = this.notebook.id;
+			}
 			this.note = note;
 			this.notebook.notes.unshift(note);
 			this.editFlag = true;

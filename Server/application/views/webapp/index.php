@@ -104,7 +104,7 @@
     </ul>
     </div>
     <div class="col-md-8 note-content">
-	    <form class="form-horizontal">
+	    <form class="form-horizontal" v-if="note">
 		  <div class="form-group">
 		    <div class="col-sm-12">
 		      <input type="text" class="form-control" placeholder="无标题" v-model="note.title">
@@ -131,6 +131,12 @@
 			</div>		    
 		  </div>
 		  </form>
+		  <div class="col-sm-12" v-else>
+		  <div class="text-center no-note">
+		  	<h2>空空如也</h2>
+		    <button class="btn btn-default" v-on:click="addNote()">新建MarkDown笔记</button>
+		  </div> 
+		  </div>
     </div>
   </div>
 </div>
