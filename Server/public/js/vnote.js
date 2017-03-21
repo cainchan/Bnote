@@ -11,6 +11,8 @@ var vm = new Vue({
 		addNotebookFlag:false,
 		new_notebook:"",
 		notebookRMenu:false,
+		saveSuccessed:false,
+		saveFailed:false,
 	},
 	filters:{
 
@@ -131,9 +133,14 @@ var vm = new Vue({
 		},
 		saveNote:function(){
 			this.note.html = marked(this.note.text);
+			var _this = this;
 			axios.put('/api/v1/note/id/'+this.note.id,this.note).then(function (res) {
-		    	console.log(res.data);
+				_this.saveSuccessed = true;
 			});
+		},
+		clearSaveStatus:function(){
+			this.saveSuccessed = false;
+			this.saveFailed = false;
 		},
 		viewNote:function(){
 			this.editFlag = false;
