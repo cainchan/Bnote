@@ -9,6 +9,7 @@ class Note extends CI_Controller {
 	public function index(){
 		if (empty($this->session->userdata('email'))){
 			redirect('/user/login');
+			return;
 		}
 		$this->load->view('webapp/index');
 	}
