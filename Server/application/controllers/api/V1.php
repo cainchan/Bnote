@@ -47,7 +47,7 @@ class V1 extends REST_Controller {
         $user_id = $this->Usermodel->add($data);
         // 增加默认笔记本
         $data = ['name' => '默认笔记本',
-            'user_id' => $id,
+            'user_id' => $user_id,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ];
