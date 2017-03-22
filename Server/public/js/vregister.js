@@ -20,8 +20,10 @@ var vm = new Vue({
 			axios.post('/api/v1/reg',param).then(function (res) {
 		    	console.log(res.data);
 		    	if (res.data.code == 1){
-		    		alter('注册成功,去登录')
+		    		alert('注册成功,去登录');
 		    		window.location.href = '/user/login';
+		    	}else{
+		    		alert('注册失败:'+res.data.msg);
 		    	}
 			});
 		}

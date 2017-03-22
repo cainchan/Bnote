@@ -44,9 +44,27 @@ class V1 extends REST_Controller {
         $data = ['email' => $this->post('email'),
             'password' => md5($this->post('password')),
             'name' => $this->post('email')];
-        $id = $this->Usermodel->add($data);
+        $user_id = $this->Usermodel->add($data);
+        // 增加默认笔记本
+        $data = ['name' => '默认笔记本',
+            'user_id' => $id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $notebook_id = $this->Notebookmodel->add($data);
+        // 增加默认笔记
+        $note = $this->Notemodel->getOne(1);
+        $data = ['title' => $note['title'],
+            'text' => $note['text'],
+            'html' => $note['html'],
+            'notebook_id' => $notebook_id,
+            'user_id' => $user_id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $note_id = $this->Notemodel->add($data);
         $this->result['msg'] = "created success";
-        $this->result['results'] = ['id' => $id];
+        $this->result['results'] = ['user_id' => $user_id];
         $this->set_response($this->result, REST_Controller::HTTP_CREATED);
     }
     public function login_post(){
