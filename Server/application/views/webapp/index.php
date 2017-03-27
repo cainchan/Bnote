@@ -71,7 +71,7 @@
 			<ul class="list-group">
 			  <li class="list-group-item" v-on:click="loadLastNotes()">最近</li>
 			  <li class="list-group-item" v-if="addNotebookFlag">
-			  	<input type="text" v-on:change="addNotebook()" v-model="new_notebook">
+			  	<input type="text" v-on:change="addNotebook()" v-on:keyup.13="addNotebook()" v-model="new_notebook">
 			  </li>
 			  <li class="list-group-item" v-for="book in notebooks" v-on:mouseover="mouseoverSet(book)" v-on:mouseout="mouseoutSet()">
 			    <span class="badge" v-if="!book.rename" v-show="book.hoverSetFlag">
@@ -83,7 +83,7 @@
 			        </ul>
 			    </span>
 			    <span v-if="!book.rename" v-on:click="changeNotebook(book)">{{book.name}}</span>
-			    <input id="renameNotebook" type="text" v-if="book.rename" v-on:change="saveNotebookName(book)" v-model="book.name">
+			    <input id="renameNotebook" type="text" v-if="book.rename" v-on:change="saveNotebookName(book)" v-on:keyup.13="saveNotebookName(book)" v-model="book.name">
 			  </li>
 			</ul>
 			</div>
