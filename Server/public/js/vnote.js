@@ -174,8 +174,17 @@ var vm = new Vue({
 				_this.$set(book,"hoverSetFlag",false);
 	    	});
 		},
-		renameNotebook:function(notebook){
+		showRenameNotebook:function(notebook){
+			notebook.rename = true;
 			console.log(notebook.name);
+		},
+		saveNotebookName:function(notebook){
+			notebook.rename = false;
+			var param = {'name':notebook.name}
+			var _this = this;
+			axios.put('/api/v1/notebook/id/'+notebook.id,param).then(function(res){
+				_this.loadNoteBooks();
+			});
 		},
 		deleteNotebook:function(notebook){
 			var _this = this;

@@ -159,6 +159,20 @@ class V1 extends REST_Controller {
         // CREATED (201) being the HTTP response code
         $this->set_response($message, REST_Controller::HTTP_CREATED); 
     }
+    public function notebook_put(){
+        $id = intval($this->get('id'));
+        if ($id <= 0){
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+        }
+        $data = ['name' => $this->put('name')];
+        $this->Notebookmodel->edit($id,$data);
+        $message = [
+            'data' => $data,
+            'id' => $id,
+            'message' => 'updated the resource'
+        ];
+        $this->set_response($message, REST_Controller::HTTP_OK); // NO_CONTENT (204) being the HTTP response code
+    }
     public function notebook_delete(){
         $id = intval($this->get('id'));
         if ($id <= 0){
