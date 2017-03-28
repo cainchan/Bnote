@@ -8,8 +8,8 @@
 	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css">
-<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-contextmenu/2.4.3/jquery.contextMenu.min.css">
 <link rel="stylesheet" href="/public/css/style.css">
+<link rel="stylesheet" href="/public/editor.md/css/editormd.css">
 </head>
 <body>
 <div class="container-fluid" id="web">
@@ -112,6 +112,7 @@
 
     </ul>
     </div>
+
     <div class="col-md-8 note-content">
 	    <form class="form-horizontal" v-if="note">
 		  <div class="form-group">
@@ -136,6 +137,7 @@
 				<div class="tab-pane" id="edit" v-bind:class="{'active':editFlag}">
 				      <textarea class="form-control" rows="20" v-model="note.text"></textarea>	
 				</div>
+				
 			</div>
 			</div>		    
 		  </div>
@@ -152,12 +154,11 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-contextmenu/2.4.3/jquery.contextMenu.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-contextmenu/2.4.3/jquery.ui.position.min.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
 <script src="https://cdn.bootcss.com/marked/0.3.6/marked.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.15.3/axios.js"></script>
 <script src="/public/js/vnote.js"></script>
+<script src="/public/editor.md/editormd.min.js"></script>
 </body>
 </html>
