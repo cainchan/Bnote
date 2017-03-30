@@ -1,8 +1,10 @@
 <template>
   <div class="hello">
+    <kai></kai>
+    <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
-    <li><a href="/test">test</a></li>
+    <li><a href="/login">login</a></li>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -19,11 +21,10 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
   </div>
-  Hello2
 </template>
 
 <script>
-import Hello2 from './Hello2'
+import kai from './kai'
 export default {
   name: 'hello',
   data () {
@@ -32,8 +33,8 @@ export default {
     }
   },
   components:{
-    Hello2
-  }
+    kai
+  },
 }
 </script>
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import Hello2 from '@/components/Hello2'
+import hello from '@/components/hello'
+import login from '@/components/login'
 
 Vue.use(Router)
 const router = new Router({
@@ -9,13 +9,13 @@ const router = new Router({
   	routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'hello',
+      component: hello
     },
     {
-      path: '/test',
-      name: 'Hello2',
-      component: Hello2
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })
@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
 	}
 	if (to.path == '/'){
 		console.log('login verify login');
-		next('/test')
+		// next('/test')
 	}
 	next()
 })
