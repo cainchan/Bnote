@@ -19,15 +19,20 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
   </div>
+  Hello2
 </template>
 
 <script>
+import Hello2 from './Hello2'
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components:{
+    Hello2
   }
 }
 </script>
