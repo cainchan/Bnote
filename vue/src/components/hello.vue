@@ -1,6 +1,7 @@
 <template>
-  <div class="hello">
+<div class="hello">
     <kai></kai>
+    <sidebar></sidebar>
     <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
@@ -20,11 +21,12 @@
       <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
-  </div>
+</div>
 </template>
 
 <script>
 import kai from './kai'
+import sidebar from './sidebar'
 export default {
   name: 'hello',
   data () {
@@ -33,7 +35,8 @@ export default {
     }
   },
   components:{
-    kai
+    kai,
+    sidebar
   },
 }
 </script>
