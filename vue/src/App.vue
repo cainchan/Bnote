@@ -11,12 +11,18 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+ul {
+  list-style:none; 
+  padding-left: 0; 
 }
+#app {
+    position: absolute;
+    top:-60px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+}
+
+
 </style>

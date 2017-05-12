@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import TinyMCE from 'tinymce-vue-2';
+
+Vue.component('tiny-mce', TinyMCE);
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

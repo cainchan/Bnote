@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import hello from '@/components/hello'
+import bnote from '@/components/bnote'
 import login from '@/components/login'
 
 Vue.use(Router)
@@ -9,8 +9,8 @@ const router = new Router({
   	routes: [
     {
       path: '/',
-      name: 'hello',
-      component: hello
+      name: 'bnote',
+      component: bnote
     },
     {
       path: '/login',
