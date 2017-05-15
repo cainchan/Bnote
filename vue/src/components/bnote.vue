@@ -12,6 +12,7 @@ import navmenu from './navmenu'
 import sidebar from './sidebar'
 import notelist from './notelist'
 import editor from './editor'
+
 export default {
   name: 'bnote',
   data () {
@@ -23,7 +24,7 @@ export default {
     navmenu,
     sidebar,
     notelist,
-    editor
+    editor,
   },
 }
 </script>
